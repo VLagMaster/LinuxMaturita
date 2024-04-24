@@ -21,25 +21,25 @@ Shrnutí učiva 2. až 4. řočníku na SPŠE V Úžlabině
 * vstup
   * stdin - běžný vstup (nejčastěji od uživatele)
 * přesměrování stdout aplikace do či ze souboru
- * Přepsání souboru
-  * ```echo "Hello World" > out.txt```
- * Vložení výstupu za existující obsah na nový řádek
-  *   ```echo "Hello World >> out.txt"```
+  * Přepsání souboru
+    * ```echo "Hello World" > out.txt```
+  * Vložení výstupu za existující obsah na nový řádek
+    *   ```echo "Hello World >> out.txt"```
 * Použití obsahu souboru jako vstup
- * ```cowsay < in.txt```
+  * ```cowsay < in.txt```
 ###Archivace
 * nápověda ```man tar```
 * Příkaz tar
- * Slouží pro práci s archivy
- * Podporuje práci se soubory *.tar, *.tar.gz, *.tar.bz, *.tar.xz, ...
- * Parametry
-  * -c Vytvoří archiv
-  * -x Extrahuje archiv
-  * -t Vypíše obsah archivu
-  * -f [název archivu] specifikuje název archivu, se kterým se pracuje
-  * -z použije kompresi gzip (*.tar.gz)
-  * -j použije kompresi bzip2 (*.tar.bz2)
-  * -J použije kompresi xz (*.tar.xz)
+  * Slouží pro práci s archivy
+  * Podporuje práci se soubory *.tar, *.tar.gz, *.tar.bz, *.tar.xz, ...
+  * Parametry
+    * -c Vytvoří archiv
+    * -x Extrahuje archiv
+    * -t Vypíše obsah archivu
+    * -f [název archivu] specifikuje název archivu, se kterým se pracuje
+    * -z použije kompresi gzip (*.tar.gz)
+    * -j použije kompresi bzip2 (*.tar.bz2)
+    * -J použije kompresi xz (*.tar.xz)
  * Tvorba archivu bez komprese
   * ```tar -cf [název archivu] [soubory] ```
   * Vytvoření archivu archive.tar ze složky files
