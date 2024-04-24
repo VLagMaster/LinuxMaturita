@@ -15,19 +15,18 @@ Shrnutí učiva 2. až 4. řočníku na SPŠE V Úžlabině
 * např. ```touch file.txt``` nebo ```touch folder/{file1.txt,file2.txt}```
 
 ### Směrování výstupu do souborů
-* existují 2 základní výstupy aplikací
+* 2 základní výstupy aplikací
   * stdout - běžný výstup (1)
-  *   stderr - chybový výstup (2)
-  * input
-  *   stdin - běžný vstup (nejčastěji od uživatele)
-
+  * stderr - chybový výstup (2)
+* vstup
+  * stdin - běžný vstup (nejčastěji od uživatele)
 * přesměrování stdout aplikace do či ze souboru
-* Přepsání souboru
-*   ```echo "Hello World" > out.txt```
-* Vložení výstupu za existující obsah na nový řádek
-*   ```echo "Hello World >> out.txt"```
+ * Přepsání souboru
+  * ```echo "Hello World" > out.txt```
+ * Vložení výstupu za existující obsah na nový řádek
+  *   ```echo "Hello World >> out.txt"```
 * Použití obsahu souboru jako vstup
-*   ```cowsay < in.txt```
+ * ```cowsay < in.txt```
 ###Archivace
 * nápověda ```man tar```
 * Příkaz tar
