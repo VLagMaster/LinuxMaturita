@@ -27,7 +27,7 @@ Shrnutí učiva 2. až 4. řočníku na SPŠE V Úžlabině
     *   ```echo "Hello World >> out.txt"```
 * Použití obsahu souboru jako vstup
   * ```cowsay < in.txt```
-###Archivace
+### Archivace
 * nápověda ```man tar```
 * Příkaz tar
   * Slouží pro práci s archivy
