@@ -30,26 +30,26 @@ Shrnutí učiva 2. až 4. řočníku na SPŠE V Úžlabině
 ###Archivace
 * nápověda ```man tar```
 * Příkaz tar
-*   Slouží pro práci s archivy
-*   Podporuje práci se soubory *.tar, *.tar.gz, *.tar.bz, *.tar.xz, ...
-*   Parametry
-*     -c Vytvoří archiv
-*     -x Extrahuje archiv
-*     -t Vypíše obsah archivu
-*     -f [název archivu] specifikuje název archivu, se kterým se pracuje
-*     -z použije kompresi gzip (*.tar.gz)
-*     -j použije kompresi bzip2 (*.tar.bz2)
-*     -J použije kompresi xz (*.tar.xz)
-*   Tvorba archivu bez komprese
-*     ```tar -cf [název archivu] [soubory] ```
-*      Vytvoření archivu archive.tar ze složky files
-*        ```tar -cf archive.tar files```
-*      Vytvoření archivu archive.tar ze složky files s použitím absolutní cesty
-*        ```tar -cf archive.tar ~/files```
-*   Tvorba archivu s kompresí xz
-*     ```tar -cJf [název archivu] [soubory] ```
-*      Vytvoření archivu archive.tar.xz ze složky files
-*        ```tar -cf archive.tar.xz files```
+ * Slouží pro práci s archivy
+ * Podporuje práci se soubory *.tar, *.tar.gz, *.tar.bz, *.tar.xz, ...
+ * Parametry
+  * -c Vytvoří archiv
+  * -x Extrahuje archiv
+  * -t Vypíše obsah archivu
+  * -f [název archivu] specifikuje název archivu, se kterým se pracuje
+  * -z použije kompresi gzip (*.tar.gz)
+  * -j použije kompresi bzip2 (*.tar.bz2)
+  * -J použije kompresi xz (*.tar.xz)
+ * Tvorba archivu bez komprese
+  * ```tar -cf [název archivu] [soubory] ```
+  * Vytvoření archivu archive.tar ze složky files
+   *  ```tar -cf archive.tar files```
+  * Vytvoření archivu archive.tar ze složky files s použitím absolutní cesty
+   * ```tar -cf archive.tar ~/files```
+ * Tvorba archivu s kompresí xz
+ *   ```tar -cJf [název archivu] [soubory] ```
+ *    Vytvoření archivu archive.tar.xz ze složky files
+ *      ```tar -cf archive.tar.xz files```
 ### Roury - Pipes
 * směrování standartního výstupu z jedné aplikace jako vstup uživatele (jako by to psal na klávesnici)
 * použití ```[příkaz_ze_kterého_používáme_výstup] | [příkaz_který_použije_vstup_z_roury]```
