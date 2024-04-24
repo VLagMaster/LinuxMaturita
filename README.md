@@ -1,6 +1,16 @@
 # LinuxMaturita
 Shrnutí učiva 2. až 4. řočníku na SPŠE V Úžlabině
 # 2. Ročník
+## Užitečné příkazy
+* ls -lah
+  * vypsání všech souborů ve složce (včetně skrytých) v lidském formátu (megabajty, gigabajty, ... místo bajtů)
+* rm -r [složka]
+  * vymazání souboru nebo složky včetně jejího obsahu
+* grep [hledaný_řetězec]
+  * nalezení řádků obsahující určitý řetězec (text)
+  * např. ```ls -l | grep txt``` vypíše obsach složky a vyfiltruje 
+* head -n [počet_řádků]
+  * vypsání prvních n řádků
 ## Práce se soubory
 ### Vytvoření složky
 * příkaz mkdir
@@ -71,8 +81,14 @@ Shrnutí učiva 2. až 4. řočníku na SPŠE V Úžlabině
 ### Soubory s konfiguracemi uživatelů
 * ```/etc/passwd``` obsahuje základní informace (jméno, domovský adresář, výchozí shell, způsob ověření, ...)
 * ```/etc/shadow``` obsahuje hesla
-* ```/etc/group``` obsahuje informace o skupinách a Členství ve skupinách
+* ```/etc/group``` obsahuje informace o skupinách a členství ve skupinách
 ### Tvorba uživatelů
-* příkaz ```useradd```
+* příkaz ```useradd [parametry] [uživatel]```
 * parametry:
-* 
+  * ```-b [base_dir]``` Specifikuje lokaci domovského adresáře (base_dir)
+  * ```-m``` Vytvoří domovskou složku když neexistuje
+  * ```-g [group_name]``` Určí primární skupinu
+  * ```-G [group_name1[,group_name2[,group_nameN]]]``` Přidá uživatele do dalších skupin
+  * ```-s [lokace_shellu]``` Změna uživatelovo shellu po přihlášení (login_shellu)
+  * ```-e [YYYY-MM-DD]``` Nastavení data vypšení účtu (expiredate)
+* v celku ```useradd -b [base_dir] -m -g [group_name] -G [group_name1[,group_name2[,group_nameN]]] -s [lokace_shellu] -e [YYYY-MM-DD]```
