@@ -40,7 +40,7 @@ Shrnutí učiva 2. až 4. řočníku na SPŠE V Úžlabině
 *     -f [název archivu] specifikuje název archivu, se kterým se pracuje
 *     -z použije kompresi gzip (*.tar.gz)
 *     -j použije kompresi bzip2 (*.tar.bz2)
-*     `-J použije kompresi xz (*.tar.xz)
+*     -J použije kompresi xz (*.tar.xz)
 ### Roury - Pipes
 * směrování standartního výstupu z jedné aplikace jako vstup uživatele (jako by to psal na klávesnici)
 * použití ```[příkaz_ze_kterého_používáme_výstup] | [příkaz_který_použije_vstup_z_roury]```
