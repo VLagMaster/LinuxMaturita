@@ -16,11 +16,11 @@ Shrnutí učiva 2. až 4. řočníku na SPŠE V Úžlabině
 
 ### Směrování výstupu do souborů
 * existují 2 základní výstupy aplikací
-*   stdout - běžný výstup (1)
-*   stderr - chybový výstup (2)
-* input
-*   stdin - běžný vstup (nejčastěji od uživatele)
-*   
+  * stdout - běžný výstup (1)
+  *   stderr - chybový výstup (2)
+  * input
+  *   stdin - běžný vstup (nejčastěji od uživatele)
+
 * přesměrování stdout aplikace do či ze souboru
 * Přepsání souboru
 *   ```echo "Hello World" > out.txt```
