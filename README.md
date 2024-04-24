@@ -33,14 +33,14 @@ Shrnutí učiva 2. až 4. řočníku na SPŠE V Úžlabině
   * Slouží pro práci s archivy
   * Podporuje práci se soubory *.tar, *.tar.gz, *.tar.bz, *.tar.xz, ...
   * Parametry
-    * -c Vytvoří archiv
-    * -x Extrahuje archiv
-    * -t Vypíše obsah archivu
-    * -f [název archivu] specifikuje název archivu, se kterým se pracuje
-    * -z použije kompresi gzip (*.tar.gz)
-    * -j použije kompresi bzip2 (*.tar.bz2)
-    * -J použije kompresi xz (*.tar.xz)
-    * -C změní složku, ve které se bude operace vykonávat (časté použití určení, kde se bude extrahovat archiv)
+    * ```-c``` Vytvoří archiv
+    * ```-x``` Extrahuje archiv
+    * ```-t``` Vypíše obsah archivu
+    * ```-f [název archivu]``` specifikuje název archivu, se kterým se pracuje
+    * ```-z``` použije kompresi gzip (*.tar.gz)
+    * ```-j``` použije kompresi bzip2 (*.tar.bz2)
+    * ```-J``` použije kompresi xz (*.tar.xz)
+    * ```-C``` změní složku, ve které se bude operace vykonávat (časté použití určení, kde se bude extrahovat archiv)
   * Tvorba archivu bez komprese
     * ```tar -cf [název archivu] [soubory] ```
     * Vytvoření archivu archive.tar ze složky files
