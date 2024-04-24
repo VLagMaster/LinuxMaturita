@@ -56,7 +56,8 @@ Shrnutí učiva 2. až 4. řočníku na SPŠE V Úžlabině
     * není nutné specifikovat metodu komprese
     * např. ```tar -tf archive.tar.bz2```
   * Extrahování archivu
-    * ```tar -xf [název_archivu] -C [cesta_ke_složce_kde_se_bude_extrahovat]
+    * ```tar -xf [název_archivu] -C [cesta_ke_složce_kde_se_bude_extrahovat]```
+    * např. Extrahování archivu archive.tar.xz do složky vystup ```tar -xf archive.tar.xz -C vystup```
 ### Roury - Pipes
 * směrování standartního výstupu z jedné aplikace jako vstup uživatele (jako by to psal na klávesnici)
 * použití ```[příkaz_ze_kterého_používáme_výstup] | [příkaz_který_použije_vstup_z_roury]```
