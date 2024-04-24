@@ -19,7 +19,7 @@ Shrnutí učiva 2. až 4. řočníku na SPŠE V Úžlabině
 *   stdout - běžný výstup (1)
 *   stderr - chybový výstup (2)
 * input
-*   stdin
+*   stdin - běžný vstup (nejčastěji od uživatele)
 *   
 * přesměrování stdout aplikace do či ze souboru
 * Přepsání souboru
@@ -36,4 +36,14 @@ Shrnutí učiva 2. až 4. řočníku na SPŠE V Úžlabině
 
 ### Hromadná tvorba souborů mající obsah
 * stejný princip jako u tvorby více složek zároveň, vhodné použít příkaz tee, který umožní psaní do více souborů zároveň
-* echo "Oblíbená ulice" | tee ulice/{Bratislava/{Bachova,Česká,Dobrovičova},Praha/{Adamova,Dačická,Eberlova},Warzawa/{Abrahama,Balzaka,Chlebowa}}/desc.txt
+* ```echo "Oblíbená ulice" | tee ulice/{Bratislava/{Bachova,Česká,Dobrovičova},Praha/{Adamova,Dačická,Eberlova},Warzawa/{Abrahama,Balzaka,Chlebowa}}/desc.txt```
+
+##Správa uživatelů
+###Soubory s konfiguracemi uživatelů
+* ```/etc/passwd``` obsahuje základní informace (jméno, domovský adresář, výchozí shell, způsob ověření, ...)
+* ```/etc/shadow``` obsahuje hesla
+* ```/etc/group``` obsahuje informace o skupinách a Členství ve skupinách
+###Tvorba uživatelů
+* příkaz ```useradd```
+* parametry:
+* 
