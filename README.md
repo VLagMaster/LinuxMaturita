@@ -97,15 +97,44 @@ Shrnutí učiva 2. až 4. řočníku na SPŠE V Úžlabině
   * ```-s [lokace_shellu]``` Změna uživatelovo shellu po přihlášení (login_shellu)
   * ```-e [YYYY-MM-DD]``` Nastavení data vypšení účtu (expiredate)
 * v celku ```useradd -b [base_dir] -m -g [group_name] -G [group_name1[,group_name2[,group_nameN]]] -s [lokace_shellu] -e [YYYY-MM-DD] [uživatel]```
-### Změna hesla uŽivatele
+### Změna hesla uživatele
 * příkaz ```passwd```
 * použití pro změnu hesla ```passwd [uživatel]``` a následné zadání hesla
 * použití pro expiraci hesla (uživatel si bude muset heslo změnit po přihlášení) ```passwd -e [uživatel]```
 ### Úprava uživatele
 * příkaz ```usermod [parametry] [uzivatel]```
 * parametry stejné jako u ```useradd```
+* přidání uživatele do skupiny ```usermod -aG [skupina] [uživatel]```
+  * např. ```usermod -aG sudo vaclav``` přidá uživatele vaclav do skupiny sudo
 ### smazání uživatele
 * ```userdel [uživatel]```
+### Tvorba skupin
+* příkaz ```groupadd [název skupiny]```
+* např. ```groupadd pracovnici``` vytvoří skupinu pracovnici
+### Mazání skupin
+* příkaz ```groupdel [skupina]```
+### hrmoadná tvorba uživatelů pomocí for loop
+* je nutné mít pŘedem vytvořeené všechny skupiny
+* nahraďte všechny hodnoty v hranatých závorkách
+* smažte řádky které nejsou potřeba
+```
+for user in [uživatel1] [uživatel2] [uživatel3]
+  do
+  sudo useradd -m -d [cesta k domovským adresářům]/$user -s /bin/bash -g [primární skupina] -G [další skupiny] $user # přidá uživatele
+  sudo chmod 700 [cesta k domovským adresářům]/$user #změní oprávnění k domovskému adresáři uživatele
+  echo -e "$user\n$user" | sudo passwd $user # změní uživatelovo heslo jko jeho jméno
+  sudo passwd -e $user # donutí uživatele změnit heslo po přihlášení
+  sudo chage -E $(date -d '+183 days' '+%Y-%m-%d') $user # nastavý vypršení uživatele po 183 dnech (půl roce)
+  done
+```
+* např. ```for user in alojs pepina rodic knihovnik
+do
+   sudo useradd -m -d /knihovna/$user -s /bin/bash -g knizni_klub -G cdrom,dip,lxd $user
+   sudo chmod 700 /knihovna/$user
+   echo -e "$user\n$user" | sudo passwd $user
+   sudo passwd -e $user
+   sudo chage -E $(date -d '+183 days' '+%Y-%m-%d') $user
+done```
 
 ## Správa oprávnění k souborům a složkám
 ### Změna oprávnění
