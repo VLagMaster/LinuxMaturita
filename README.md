@@ -127,14 +127,17 @@ for user in [uživatel1] [uživatel2] [uživatel3]
   sudo chage -E $(date -d '+183 days' '+%Y-%m-%d') $user # nastavý vypršení uživatele po 183 dnech (půl roce)
   done
 ```
-* např. ```for user in alojs pepina rodic knihovnik
+* např.
+```
+for user in alojs pepina rodic knihovnik
 do
    sudo useradd -m -d /knihovna/$user -s /bin/bash -g knizni_klub -G cdrom,dip,lxd $user
    sudo chmod 700 /knihovna/$user
    echo -e "$user\n$user" | sudo passwd $user
    sudo passwd -e $user
    sudo chage -E $(date -d '+183 days' '+%Y-%m-%d') $user
-done```
+done
+```
 
 ## Správa oprávnění k souborům a složkám
 ### Změna oprávnění
@@ -143,3 +146,29 @@ done```
 ### Změna vlastnictví
 * příkaz ```chown [uživatel[:[skupina]]] file.txt```
 * např. ```chown worker:developers file.txt``` Změní vlastníka souboru na uživatele worker a vlastnickou skupinu na skupinu developers pro soubor file.txt
+
+## 3. Ročník
+### Tvorba oddílů na disku
+* příkaz ```fdisk```
+* ```fdisk -l``` vypíše dostupné disky
+* ```fdisk [adresa_disku]``` otevře nástroj tvorby disku pro daný disk např. ```fdisk /dev/sdb```
+* Parametry: dodělat
+formátování (ext4, swap) mkfs.ext4
+mount při bootu (identifikátor)
+mount při bootu (label) /etc/fstab
+tvorba swapfile mkfs.swp swapon
+
+LVM
+formátování jako LVM2_MEMBER
+přidávání disku do skupin
+vytváření svazků v LVM
+swap file na LVM
+automatický mount
+
+RAID
+automatické sestrojení při bootu
+formátování svazku
+Kvótování (soft and hard kvóta a grace period)
+práce s procesy
+	priorita
+	uspání procesu
