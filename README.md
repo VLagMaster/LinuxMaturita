@@ -1,5 +1,6 @@
 # LinuxMaturita
 Shrnutí učiva 2. až 4. řočníku na SPŠE V Úžlabině
+Konfigurace Ubuntu
 # 2. Ročník
 ## Užitečné příkazy
 * ```ls -lah```
@@ -158,17 +159,23 @@ done
 * mount při bootu (label) /etc/fstab
 * tvorba swapfile mkfs.swp swapon
 
-## LVM
+### LVM
+* https://www.digitalocean.com/community/tutorials/how-to-use-lvm-to-manage-storage-devices-on-ubuntu-18-04
 * formátování jako LVM2_MEMBER
 * přidávání disku do skupin
 * vytváření svazků v LVM
 * swap file na LVM
 * automatický mount
 
-## RAID
+### RAID
+* https://raid.wiki.kernel.org/index.php/RAID_setup
 * automatické sestrojení při bootu
 * formátování svazku
-* Kvótování (soft and hard kvóta a grace period)
-* práce s procesy
-  * priorita
-  * uspání procesu
+### Kvótování
+* https://www.digitalocean.com/community/tutorials/how-to-set-filesystem-quotas-on-ubuntu-20-04
+* soft quote
+* hard quote
+* grace period
+### práce s procesy
+* priorita
+* uspání procesu
