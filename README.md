@@ -153,22 +153,22 @@ done
 * ```fdisk -l``` vypíše dostupné disky
 * ```fdisk [adresa_disku]``` otevře nástroj tvorby disku pro daný disk např. ```fdisk /dev/sdb```
 * Parametry: dodělat
-formátování (ext4, swap) mkfs.ext4
-mount při bootu (identifikátor)
-mount při bootu (label) /etc/fstab
-tvorba swapfile mkfs.swp swapon
+* formátování (ext4, swap) mkfs.ext4
+* mount při bootu (identifikátor)
+* mount při bootu (label) /etc/fstab
+* tvorba swapfile mkfs.swp swapon
 
-LVM
-formátování jako LVM2_MEMBER
-přidávání disku do skupin
-vytváření svazků v LVM
-swap file na LVM
-automatický mount
+## LVM
+* formátování jako LVM2_MEMBER
+* přidávání disku do skupin
+* vytváření svazků v LVM
+* swap file na LVM
+* automatický mount
 
-RAID
-automatické sestrojení při bootu
-formátování svazku
-Kvótování (soft and hard kvóta a grace period)
-práce s procesy
-	priorita
-	uspání procesu
+## RAID
+* automatické sestrojení při bootu
+* formátování svazku
+* Kvótování (soft and hard kvóta a grace period)
+* práce s procesy
+  * priorita
+  * uspání procesu
