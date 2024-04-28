@@ -272,6 +272,35 @@ mount -a
       * ```sudo edquota -g [skupina]``` např. ```sudo edquota -g fresh```
     * grace period
       * úprava pomocí ```edquota -t```
+     
+### Tvorba šifrovaných oddílů (LUKS)
+* nástroj ```cryptsetup```
+* pomocí hesla
+  * inicializace šifrovaného oddílu pomocí ```cryptsetup -y -v luksFormat [oddíl]```
+    * např. ```cryptsetup -y -v luksFormat /dev/sdb30``` a následné potvrzení pomocí "YES" velkými písmeny a napište heslo
+  * dešifrování disku a jeho pojmenování:
+    * ```cryptsetup open [oddíl] [jméno]```
+      * např. ```cryptsetup open /dev/sdb30 "securePart"```
+  * ověření stavu pomocí ```cryptsetup status [jméno]```
+    * např. ```cryptsetup status "securePart"```
+  * Tvorba filesystému pomocí ```mkfs.[typ_oddílu] /dev/mapper/[jméno]```
+    * např. ```mkfs.ext4 /dev/mapper/securePart```
+* pomocí klíče
+  * tvorba klíče pomocí ```dd if=/dev/urandom of=[klíč]  bs=1024 count=4```
+    * např. ```dd if=/dev/urandom of=/root/.secure-key  bs=1024 count=4```
+  * změna oprávnění klíče na 400 pomocí ```chmod 0400 [klíč]```
+    * např. ```chmod 0400 /root/secret.key```
+  * inicializace šifrovaného oddílu pomocí ```cryptsetup -v luksFormat [oddíl] --key-file=[klíč]```
+    * např. ```cryptsetup -v luksFormat /dev/sdb30 --key-file=/root/secret.key```
+  * dešifrování s pojmenováním pomocí ```cryptsetup -v luksFormat --key-file=[klíč] [zařízení] [jméno]```
+    * např. ```cryptsetup open --key-file=/root/secret.key /dev/sdb30 securePart```
+  * Tvorba filesystému pomocí ```mkfs.[typ_oddílu] /dev/mapper/[jméno]```
+    * např. ```mkfs.ext4 /dev/mapper/securePart```
+  * automatické dešifrování při startu
+    * připsání do ```/etc/crypttab```
+    * syntax: ```[jméno] [iden] [klíč] [typ_šifry]```
+    * 
+    * např.
 ### práce s procesy
 * priorita
 * uspání procesu
