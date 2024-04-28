@@ -172,33 +172,66 @@ done
   * swap
     * formátování jako swap ```mkswap [oddíl]```
     * např. ```mkswap /dev/sdb3```
+    * swap nebude mít přípojný bod (bude ```none```)
 * zobrazení informací o oddíle
   * příkaz ```blkid [oddíl]```
   * např. ```blkid /dev/sdb2```
     * zobrazí velikost oddílu, jeho UUID a LABEL
 * mount při bootu
-  * úprava souboru /etc/fstab
+  * nejprve je nutné vytvořit přípojný bod (složku)
+    * např. ```mkdir -p /mnt/files/```
+  * úprava souboru ```/etc/fstab```
   * syntaxe:
 ```
-[identifikátor_disku] [přípojný bod (složka)] [typ] [možnosti] [dump] [pass]
+[identifikátor_disku]                       [přípojný bod (složka)] [typ] [možnosti] [dump] [pass]
+#napojení ext4 svazku pomocí UUID na složku /mnt/files
+UUID="75d744c6-2c7d-4414-9d23-c8a69ad2c709" /mnt/files              ext4  defaults    0      1
+#napojení btrfs svazku pomocí LABELu na složku /mnt/better
+LABEL="part"                                /mnt/better             btrfs defaults    0      1
+#napojení swapovacího oddílu
+UUID="39e6b5a8-f0de-45fe-b479-a2ba699ad7ed" none                    swap  sw          0      0
+#napojení swapfile
+/var/swapfile                               none                    swap  sw          0      0
 ```
-
+  * následné ozkoušení pomocí příkazu ```mount -a``` a ```mount``` 
 ### Tvorba swapfile
 * swapfile = odkládací prostor uložený v souboru místo na odděleném oddílu
-* 
+* Postup tvorby:
+  * Vytvoření souboru pomocí příkazu ```fallocate -l [velikost] [soubor]```
+    * ```fallocate -l 150M /var/swapfile```
+  * změna oprávnění souboru na 600 pomocí ```chmod 600 [soubor]```
+    * ```chmod 600 /var/swapfile```
+  * přidání záznamu do /etc/fstab viz. předchozí kapitola
 
 ### LVM
 * https://www.digitalocean.com/community/tutorials/how-to-use-lvm-to-manage-storage-devices-on-ubuntu-18-04
-* formátování jako LVM2_MEMBER
-* přidávání disku do skupin
-* vytváření svazků v LVM
-* swap file na LVM
-* automatický mount
+* formátování jednotlivých oddílů na kterých bude LVM pomocí ```pvcreate [oddíl1] [oddíl2] ...```
+  * např. ```pvcreate /dev/sdb20 /dev/sdb21 /dev/sdb22``` nebo ```pvcreate /dev/sdb{20,21,22}```
+* tvorba LVM skupiny pomocí příkazu ```vgcreate [název_skupiny] [oddíl1] [oddíl2] ...```
+  * např. vytvoření skupiny "skupA" ```vgcreate "skupA" /dev/sdb20 /dev/sdb21 /dev/sdb22``` nebo ```vgcreate "skupA" /dev/sdb{20,21,22}```
+* vytváření svazků v LVM pomocí příkazu ```lvcreate -L [velikost_oddílu] -n [název_oddílu] [název_skupiny]```
+  * např. vytvoření oddílu o velikosti 180 MiB s názvem "LVMPartition" ve skupině "skupA"
+```lvcreate -L 180M -n LVMPartition skupA```
+  *oddíl bude nyní přístupný na /dev/[název_skupiny]/[název_oddílu]
+* formátování oddílu zase pomocí mkfs
+  * např. mkfs.ext4 /dev/skupA/LVMPartition
+  * potom už se s oddílem pracuje jako s každým jiným
 
 ### RAID
 * https://raid.wiki.kernel.org/index.php/RAID_setup
-* automatické sestrojení při bootu
-* formátování svazku
+* úrovně raidu
+  * 0 - striping
+  * 1 - mirroring
+  * 5 - parita dat
+  * 6 - dvojitá parita dat
+* tvorba pomocí ```mdadm --create  --verbose [název_nového_zařázení] --level=[úroveň_raidu] --raid-devices=[poćet_zrázení] [oddíl1] [oddíl2] ...```
+  * např. ```mdadm --create --verbose /dev/md0 --level=0 --raid-devices=2 /dev/sdb6 /dev/sdc5```
+  * název_nového_zařázení nesmí existovat při tvorbě nového raidu, např. když vytvořím /dev/md0 tak další raid budu pojmenovávat /dev/md1
+* uložení konfigurace
+  * ```mdadm --detail --scan >> /etc/mdadm/mdadm.conf```
+* zobrazení informací o raid
+  * ```cat /proc/mdstat``` zobrazí aktivní raidy
+  * ```mdadm --monitor [md zařízení]```
 ### Kvótování
 * https://www.digitalocean.com/community/tutorials/how-to-set-filesystem-quotas-on-ubuntu-20-04
 * limitovatelné věci
@@ -218,7 +251,7 @@ done
 # <file system> <mount point>   <type>  <options>         <dump>  <pass>
 LABEL="Vol2"    /mnt/vol2       ext4    usrquota,grpquota 0       1
 ```
-    * následně je nutný umount a mount, např.
+  * následně je nutný umount a mount, např.
 ```
 umount /mnt/vol2
 mount -a
