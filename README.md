@@ -201,7 +201,10 @@ UUID="39e6b5a8-f0de-45fe-b479-a2ba699ad7ed" none                    swap  sw    
     * ```fallocate -l 150M /var/swapfile```
   * změna oprávnění souboru na 600 pomocí ```chmod 600 [soubor]```
     * ```chmod 600 /var/swapfile```
-  * přidání záznamu do /etc/fstab viz. předchozí kapitola
+  * formátování souboru jako swapfile
+    * ```mkswap [název_souboru]``` např. ```mkswap /var/swapfile```
+  * 
+  * přidání záznamu do ```/etc/fstab``` viz. předchozí kapitola
 
 ### LVM
 * https://www.digitalocean.com/community/tutorials/how-to-use-lvm-to-manage-storage-devices-on-ubuntu-18-04
