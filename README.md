@@ -153,11 +153,39 @@ done
 * příkaz ```fdisk```
 * ```fdisk -l``` vypíše dostupné disky
 * ```fdisk [adresa_disku]``` otevře nástroj tvorby disku pro daný disk např. ```fdisk /dev/sdb```
-* Parametry: dodělat
-* formátování (ext4, swap) mkfs.ext4
-* mount při bootu (identifikátor)
-* mount při bootu (label) /etc/fstab
-* tvorba swapfile mkfs.swp swapon
+* Možnosti fdisk:
+  * ```m``` zobrazí nápovědu
+  * ```g``` vytvoří novou prázdnou GPT tabulku (vhodné při první práci s diskem, jinak jsou dostupné maximálně 4 oddíly)
+  * ```n``` vytvoří nový oddíl
+    * během tvorby se bude definovat
+      * číslo oddílu (možno nechat výchozí, když není zadáno jinak)
+      * první sektor (možno nechat výchozí, když není zadáno jinak)
+      * poslední sektor (vhodné zadávat velikost pomocí +)
+        * např. +150M (oddíl bude mít velikost 150MiB)
+  * ```d``` smaže oddíl
+* formátování
+  * normální oddíl
+    * příkaz ```mkfs.[typ_oddílu] [dodatečné parametry] [oddíl]```
+    * např.
+      * formátování oddílu jako ext4 ```mkfs.ext4 /dev/sdb1```
+      * formátování oddílu jako btrfs s labelem "part" ```mkfs.btrfs -L "part" /dev/sdb2```
+  * swap
+    * formátování jako swap ```mkswap [oddíl]```
+    * např. ```mkswap /dev/sdb3```
+* zobrazení informací o oddíle
+  * příkaz ```blkid [oddíl]```
+  * např. ```blkid /dev/sdb2```
+    * zobrazí velikost oddílu, jeho UUID a LABEL
+* mount při bootu
+  * úprava souboru /etc/fstab
+  * syntaxe:
+```
+[identifikátor_disku] [přípojný bod (složka)] [typ] [možnosti] [dump] [pass]
+```
+
+### Tvorba swapfile
+* swapfile = odkládací prostor uložený v souboru místo na odděleném oddílu
+* 
 
 ### LVM
 * https://www.digitalocean.com/community/tutorials/how-to-use-lvm-to-manage-storage-devices-on-ubuntu-18-04
@@ -173,9 +201,44 @@ done
 * formátování svazku
 ### Kvótování
 * https://www.digitalocean.com/community/tutorials/how-to-set-filesystem-quotas-on-ubuntu-20-04
+* limitovatelné věci
+  * blocks - celková velikost souborů
+  * inodes - počet souborů a složek
 * soft quote
+  * limit velikosti který se dá překročit po dobu grace period
 * hard quote
+  * limit velikosti, který se nedá překročit
 * grace period
+  * doba, po kterou se dá překročit soft quote
+  * nastavuje se pomocí 
+* Nastavení
+  * nejprve je nutné do souboru ```/etc/fstab``` přidat do možnosti options ```usrquota``` nebo ```grpquota```
+    * např.
+```
+# <file system> <mount point>   <type>  <options>         <dump>  <pass>
+LABEL="Vol2"    /mnt/vol2       ext4    usrquota,grpquota 0       1
+```
+    * následně je nutný umount a mount, např.
+```
+umount /mnt/vol2
+mount -a
+```
+  * následně je nutné vytvořit soubory s konfigurací kvóty na oddílu pomocí ```quotacheck```
+    * pro uživatele
+      * ```quotacheck -u /mnt/vol2/```
+    * pro skupinu
+      * ```quotacheck -g /mnt/vol2/```
+    * pro uživatele i skupinu
+      * ```quotacheck -ug /mnt/vol2/```
+  *  Povolení kvót
+    * ```quotaon -v /mnt/vol2/```
+  * úprava kvót
+    * pro uživatele
+      * ```sudo edquota -u [uživatel]``` např. ```sudo edquota -u fresh```
+    * pro skupinu
+      * ```sudo edquota -g [skupina]``` např. ```sudo edquota -g fresh```
+    * grace period
+      * úprava pomocí ```edquota -t```
 ### práce s procesy
 * priorita
 * uspání procesu
