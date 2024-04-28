@@ -207,12 +207,12 @@ UUID="39e6b5a8-f0de-45fe-b479-a2ba699ad7ed" none                    swap  sw    
 * https://www.digitalocean.com/community/tutorials/how-to-use-lvm-to-manage-storage-devices-on-ubuntu-18-04
 * formátování jednotlivých oddílů na kterých bude LVM pomocí ```pvcreate [oddíl1] [oddíl2] ...```
   * např. ```pvcreate /dev/sdb20 /dev/sdb21 /dev/sdb22``` nebo ```pvcreate /dev/sdb{20,21,22}```
-* tvorba LVM skupiny pomocí příkazu ```vgcreate [název_skupiny] [oddíl1] [oddíl2] ...```
-  * např. vytvoření skupiny "skupA" ```vgcreate "skupA" /dev/sdb20 /dev/sdb21 /dev/sdb22``` nebo ```vgcreate "skupA" /dev/sdb{20,21,22}```
-* vytváření svazků v LVM pomocí příkazu ```lvcreate -L [velikost_oddílu] -n [název_oddílu] [název_skupiny]```
-  * např. vytvoření oddílu o velikosti 180 MiB s názvem "LVMPartition" ve skupině "skupA"
+* tvorba LVM skupiny disků pomocí příkazu ```vgcreate [název_skupiny_disků] [oddíl1] [oddíl2] ...```
+  * např. vytvoření skupiny disků "skupA" ```vgcreate "skupA" /dev/sdb20 /dev/sdb21 /dev/sdb22``` nebo ```vgcreate "skupA" /dev/sdb{20,21,22}```
+* vytváření svazků v LVM pomocí příkazu ```lvcreate -L [velikost_oddílu] -n [název_oddílu] [název_skupiny_disků]```
+  * např. vytvoření oddílu o velikosti 180 MiB s názvem "LVMPartition" ve skupině disků "skupA"
 ```lvcreate -L 180M -n LVMPartition skupA```
-  *oddíl bude nyní přístupný na /dev/[název_skupiny]/[název_oddílu]
+  *oddíl bude nyní přístupný na ```/dev/[název_skupiny_disků]/[název_oddílu]```
 * formátování oddílu zase pomocí mkfs
   * např. mkfs.ext4 /dev/skupA/LVMPartition
   * potom už se s oddílem pracuje jako s každým jiným
