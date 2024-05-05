@@ -307,3 +307,5 @@ mount -a
 ### práce s procesy
 * priorita
 * uspání procesu
+# 4. Ročník
+## IP
