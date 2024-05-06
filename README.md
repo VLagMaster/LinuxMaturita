@@ -369,10 +369,10 @@ options {
         listen-on-v6 { any; };
 };
 ```
-      * bude potřeba změnit adresy forwarders a listen-on
-    * ```/etc/bind/named.conf.local```
+  * bude potřeba změnit adresy forwarders a listen-on
+* ```/etc/bind/named.conf.local```
       * obsahuje informace o zónách
-      * nástroj pro tvorbu zón https://pgl.yoyo.org/as/bind-zone-file-creator.php
+      * nástroj pro tvorbu zón https://pgl.yoyo.org/as/bind-zone-file-creator.php 
 ```
 zone "i4c.lan" {
         type master;
@@ -387,7 +387,7 @@ zone "0.20.10.in-addr.arpa" {
         file "/etc/bind/db.0.20.10.in-addr.arpa";
 };
 ```
-    * ```/etc/bind/db.i4c.lan```
+* ```/etc/bind/db.i4c.lan```
 ```
 ; BIND db file for i4c.lan
 
@@ -413,7 +413,7 @@ klient A 10.20.0.10
 router CNAME ns
 www CNAME server
 ```
-    * ```/etc/bind/db.10.10.in-addr.arpa```
+* ```/etc/bind/db.10.10.in-addr.arpa```
 ```
  BIND db file for 10.10.in-addr.arpa
 
@@ -434,7 +434,7 @@ $ORIGIN 10.10.in-addr.arpa.
 
 1.0 PTR ns.i4c.lan.
 ```
-    * ```/etc/bind/db.0.20.10.in-addr.arpa```
+* ```/etc/bind/db.0.20.10.in-addr.arpa```
 ```
 ; BIND db file for 0.20.10.in-addr.arpa
 
@@ -455,4 +455,4 @@ $ORIGIN 0.20.10.in-addr.arpa.
 1 PTR ns.i4c.lan.
 10 PTR klient.i4c.lan.
 ```
-  * restart (pro aplikaci změn) ```sudo systemctl restart bind9```
+* restart (pro aplikaci změn) ```sudo systemctl restart bind9```
