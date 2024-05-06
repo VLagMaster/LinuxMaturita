@@ -306,6 +306,152 @@ mount -a
     * např.
 ### práce s procesy
 * priorita
+  * spuštění příkazu s jinou prioritou
+    * příkaz ```nice -n [priorita] [příkaz]``` např. ```nice -n 8 sleep 500```
 * uspání procesu
+  * ```ctrl + z``` uspání běžícího procesu
+  * ```ctrl + c``` zabití procesu
+  * ```jobs``` display status of jobs in the current session
+  * ```ps -ef``` zobrazení všech procesů
+  * ```kill [pid/název]``` zabije proces
 # 4. Ročník
-## IP
+## Nastavení IP adres
+* nástroj ```nmtui```
+  * nastavení názvu zařízení (hostname)
+  * vypnutí a zapnutí ethernetového rozhraní
+  * nastavení IP adresace na jednotlivých rozhraních (po nastavení rozhraní vypnout a zapnout)
+* ověření konektivity
+  * příkaz ```ping [IP adresa/název]```
+  * příkaz ```traceroute [IP adresa/název]```
+##Konfigurace DHCP
+* nástoj ```isc-dhcp-server```
+  * instalace ```sudo apt update && sudo apt install isc-dhcp-server```
+  * konfigurace uložená v souboru ```/etc/dhcp/dhcpd.conf```
+    * např.
+```
+option domain-name "i4c.lan";
+option domain-name-servers 10.10.0.1, 10.20.0.1;
+
+default-lease-time 600;
+max-lease-time 7200;
+ddns-update-style none;
+
+subnet 10.10.0.0 netmask 255.255.0.0 {
+  range 10.10.0.100 10.10.0.150;
+  option routers 10.10.0.1;
+}
+subnet 10.20.0.0 netmask 255.255.255.0 {
+  range 10.20.0.100 10.20.0.150;
+  option routers 10.20.0.1;
+}
+
+host server {
+  hardware ethernet 08:00:27:1B:E0:C1;
+  fixed-address 10.10.0.2;
+}
+```
+    * 
+  * restart (pro aplikaci změn) ```sudo systemctl restart isc-dhcp-server```
+##Konfigurace DNS
+* nástroj ```bind9```
+  * instalace ```sudo apt update && sudo apt install bind9```
+  * konfigurační soubory:
+    * ```/etc/bind/named.conf.options```
+      * obsahuje obecné nastavení dns serveru
+```
+options {
+        directory "/var/cache/bind";
+        forwarders {
+                8.8.8.8;
+        };
+        dnssec-validation false;
+        listen-on {10.10.0.1; 10.20.0.1;};
+        listen-on-v6 { any; };
+};
+```
+      * bude potřeba změnit adresy forwarders a listen-on
+    * ```/etc/bind/named.conf.local```
+      * obsahuje informace o zónách
+```
+zone "i4c.lan" {
+        type master;
+        file "/etc/bind/db.i4c.lan";
+};
+zone "10.10.in-addr.arpa" {
+        type master;
+        file "/etc/bind/db.10.10.in-addr.arpa";
+};
+zone "0.20.10.in-addr.arpa" {
+        type master;
+        file "/etc/bind/db.0.20.10.in-addr.arpa";
+};
+```
+    * ```/etc/bind/db.i4c.lan```
+```
+; BIND db file for i4c.lan
+
+$TTL 86400
+
+@       IN      SOA     ns.i4c.lan.      kotacka.uzlabina.cz. (
+                        2024050601      ; serial number YYMMDDNN
+                        28800           ; Refresh
+                        7200            ; Retry
+                        864000          ; Expire
+                        86400           ; Min TTL
+                        )
+
+                NS      ns.i4c.lan.
+
+
+$ORIGIN i4c.lan.
+
+ns A 10.10.0.1
+ns A 10.20.0.1
+server A 10.10.0.1
+klient A 10.20.0.10
+router CNAME ns
+www CNAME server
+```
+    * ```/etc/bind/db.10.10.in-addr.arpa```
+```
+ BIND db file for 10.10.in-addr.arpa
+
+$TTL 86400
+
+@       IN      SOA     ns.i4c.lan.      kotacka.uzlabina.cz. (
+                        2024050601      ; serial number YYMMDDNN
+                        28800           ; Refresh
+                        7200            ; Retry
+                        864000          ; Expire
+                        86400           ; Min TTL
+                        )
+
+                NS      ns.i4c.lan.
+
+
+$ORIGIN 10.10.in-addr.arpa.
+
+1.0 PTR ns.i4c.lan.
+```
+    * ```/etc/bind/db.0.20.10.in-addr.arpa```
+```
+; BIND db file for 0.20.10.in-addr.arpa
+
+$TTL 86400
+
+@       IN      SOA     ns.i4c.lan.      kotacka.uzlabina.cz. (
+                        2024050601      ; serial number YYMMDDNN
+                        28800           ; Refresh
+                        7200            ; Retry
+                        864000          ; Expire
+                        86400           ; Min TTL
+                        )
+
+                NS      ns.i4c.lan.
+
+
+$ORIGIN 0.20.10.in-addr.arpa.
+1 PTR ns.i4c.lan.
+10 PTR klient.i4c.lan.
+```
+  * restart (pro aplikaci změn) ```sudo systemctl restart bind9```
