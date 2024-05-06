@@ -352,7 +352,7 @@ host server {
 ```
     * 
   * restart (pro aplikaci změn) ```sudo systemctl restart isc-dhcp-server```
-##Konfigurace DNS
+## Konfigurace DNS
 * nástroj ```bind9```
   * instalace ```sudo apt update && sudo apt install bind9```
   * konfigurační soubory:
@@ -372,6 +372,7 @@ options {
       * bude potřeba změnit adresy forwarders a listen-on
     * ```/etc/bind/named.conf.local```
       * obsahuje informace o zónách
+      * nástroj pro tvorbu zón https://pgl.yoyo.org/as/bind-zone-file-creator.php
 ```
 zone "i4c.lan" {
         type master;
