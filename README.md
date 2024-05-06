@@ -456,3 +456,21 @@ $ORIGIN 0.20.10.in-addr.arpa.
 10 PTR klient.i4c.lan.
 ```
 * restart (pro aplikaci změn) ```sudo systemctl restart bind9```
+## Konfigurace web serveru
+* nástroj ```apache2```
+* instalace ```sudo apt update && sudo apt install apache2```
+* restart (pro aplikaci změn) ```sudo systemctl restart apache2```
+* povolení ssl (pro https) ```10.10.0.1 www.i4c.lan```
+* tvorba webové stránky
+  * tvorba složky ```/var/www/[název_webové_stránky]```
+  * tvorba nového souboru ```/etc/apache2/sites-available/[název_webové_stránky].conf```
+```
+<VirtualHost *:80>
+        ServerName [název_webové_stránky]
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/[název_webové_stránky]
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+* 
