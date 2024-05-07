@@ -462,8 +462,10 @@ $ORIGIN 0.20.10.in-addr.arpa.
 * restart (pro aplikaci změn) ```sudo systemctl restart apache2```
 * povolení ssl (pro https) ```10.10.0.1 www.i4c.lan```
 * tvorba webové stránky
-  * tvorba složky ```/var/www/[název_webové_stránky]```
+  * tvorba složky ```/var/www/[název_webové_stránky]``` pomocí ```sudo mkdir -p /var/www/[název_webové_stránky]```
+    * následně vytvořit soubor index.php pomocí ```sudo nano /var/www/[název_webové_stránky]/index.php```
   * tvorba nového souboru ```/etc/apache2/sites-available/[název_webové_stránky].conf```
+  * 
 ```
 <VirtualHost *:80>
         ServerName [název_webové_stránky]
@@ -473,4 +475,62 @@ $ORIGIN 0.20.10.in-addr.arpa.
         CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ```
-* 
+* tvorba šifrované webové stránky
+  * tvorba self signed certifikátu
+    * https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-apache-in-ubuntu-22-04
+    * vytvoření cerifikátu ```sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/[název_webové_stránky].key -out /etc/ssl/certs/[název_webové_stránky].crt```
+      * možnosti budete moct nechat prázdné
+  * povolení SSL v Apache ```sudo a2enmod ssl```
+  * tvorba nového souboru ```/etc/apache2/sites-available/[název_webové_stránky].ssl.conf```
+```
+<VirtualHost *:443>
+        ServerName [název_webové_stránky]
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/[název_webové_stránky]
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+        SSLEngine on
+        SSLCertificateFile      /etc/ssl/certs/[název_webové_stránky].crt
+        SSLCertificateKeyFile   /etc/ssl/private/[název_webové_stránky].key
+        <FilesMatch "\.(?:cgi|shtml|phtml|php)$">
+                SSLOptions +StdEnvVars
+        </FilesMatch>
+        <Directory /usr/lib/cgi-bin>
+                SSLOptions +StdEnvVars
+        </Directory>
+</VirtualHost>
+```
+## Konfigurace MariaDB serveru
+* instalace pomocí ```sudo apt update && sudo apt install mariadb-server```
+* bezpečná konfigurace
+  * ```sudo mariadb-secure-installation```
+    * ```Enter current password for root (enter for none):``` nechte prázdné
+    * ```Switch to unix_socket authentication [Y/n]``` dejte ```y```
+    * ```Change the root password? [Y/n]``` dejte ```y```
+    * změňte heslo např. na ```fresh```
+    * znovu zadejte heslo
+    * ```Remove anonymous users? [Y/n]``` dejte ```y```
+    * ```Disallow root login remotely? [Y/n]``` dejte ```y```
+    * ```Remove test database and access to it? [Y/n]``` dejte ```y```
+    * ```Reload privilege tables now? [Y/n]``` dejte ```y```
+* spuštění MariaDB ```sudo mariadb```
+* správa uživatelů
+  * zobrazení všech uživatelů ```SELECT User FROM mysql.user;```
+  * tvorba nového uživatele
+    * https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql
+    * ```CREATE USER [uživatelské_jméno]@[IP_Adresa] IDENTIFIED BY [heslo];```
+      * např. ```CREATE USER 'Administrator'@'%' IDENTIFIED BY 'ABCabc123';``` Vytvoří uživatele Administrator s heslem ABCabc123, který se může připojit z jakékoliv IP adresy
+  * přidělení oprávnění
+    * ```GRANT [oprávnění_k_příkazu] ON [databáze].[tabulka] TO [uživatel]@[IP_adresa];```
+      * např. ```GRANT ALL ON 'obchod'.* TO 'Administrator'@'%';``` přidá všechna oprávnění uživatelovi administrátor ke všem tabulkám v databázi obchod
+  * zobrazení oprávnění
+    * ```SHOW GRANTS FOR [uźivatel];``` např. ```SHOW GRANTS FOR [uźivatel];```
+* tvorba databáze
+  * ```CREATE DATABASE [název_databáze];```
+* Smazání databáze
+  * ```DROP DATABASE [název_databáze]```
+* tvorba tabulky
+  * https://www.w3schools.com/mysql/mysql_create_table.asp
+  * ```CREATE TABLE [název_tabulky] ([název_sloupce] [typ_proměnné], [název_sloupce] [typ_proměnné], ...);``` např. ```CREATE TABLE Persons (PersonID int, LastName varchar(255),);```
+* smazání tabulky
+  * ```DROP TABLE [název_tabulky];```
