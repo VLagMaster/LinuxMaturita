@@ -358,6 +358,7 @@ host server {
   * konfigurační soubory:
     * ```/etc/bind/named.conf.options```
       * obsahuje obecné nastavení dns serveru
+      * bude potřeba změnit adresy forwarders (na školní DNS server) a listen-on (na IP adresy, které bude mít router v sítích)
 ```
 options {
         directory "/var/cache/bind";
@@ -369,10 +370,9 @@ options {
         listen-on-v6 { any; };
 };
 ```
-  * bude potřeba změnit adresy forwarders a listen-on
 * ```/etc/bind/named.conf.local```
-      * obsahuje informace o zónách
-      * nástroj pro tvorbu zón https://pgl.yoyo.org/as/bind-zone-file-creator.php 
+  * obsahuje informace o zónách
+  * nástroj pro tvorbu zón https://pgl.yoyo.org/as/bind-zone-file-creator.php 
 ```
 zone "i4c.lan" {
         type master;
@@ -415,7 +415,7 @@ www CNAME server
 ```
 * ```/etc/bind/db.10.10.in-addr.arpa```
 ```
- BIND db file for 10.10.in-addr.arpa
+; BIND db file for 10.10.in-addr.arpa
 
 $TTL 86400
 
