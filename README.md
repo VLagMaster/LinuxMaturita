@@ -325,9 +325,9 @@ mount -a
   * příkaz ```traceroute [IP adresa/název]```
 ##Konfigurace DHCP
 * nástoj ```isc-dhcp-server```
-  * instalace ```sudo apt update && sudo apt install isc-dhcp-server```
-  * konfigurace uložená v souboru ```/etc/dhcp/dhcpd.conf```
-    * např.
+* instalace ```sudo apt update && sudo apt install isc-dhcp-server```
+* konfigurace uložená v souboru ```/etc/dhcp/dhcpd.conf```
+  * např.
 ```
 option domain-name "i4c.lan";
 option domain-name-servers 10.10.0.1, 10.20.0.1;
@@ -350,8 +350,23 @@ host server {
   fixed-address 10.10.0.2;
 }
 ```
-    * 
-  * restart (pro aplikaci změn) ```sudo systemctl restart isc-dhcp-server```
+* postup pro tvorbu subnetu
+```
+subnet [adresa] nemtask [maska podsítě] {
+  range [první poskytovaná IP adresa] [Poslední poskytovaná IP adresa];
+  option routers [adresa_routeru_v_daném_subnetu];
+  option domain-name [název_domény];
+  option domain-name-servers [DNS_server_pro_danou_síť];
+}
+```
+* postup pro rezervaci IP adresy
+```
+host [název_zařízení] {
+  hardware ethernet [MAC_adresa_zařízení];
+  fixed-address [rezervovaná_IP_adresa];
+}
+```
+* restart (pro aplikaci změn) ```sudo systemctl restart isc-dhcp-server```
 ## Konfigurace DNS
 * nástroj ```bind9```
   * instalace ```sudo apt update && sudo apt install bind9```
@@ -413,6 +428,10 @@ klient A 10.20.0.10
 router CNAME ns
 www CNAME server
 ```
+* Tvorba A záznamu
+  * ```[doménový_název] A [IP_adresa]``` např. ```www.firma.com. A 10.0.0.1``` přeloží doménu www.firma.com na IP adresu 10.0.0.1
+* Tvorba CNAME
+  * ```[nový_doménový_název] CNAME [starý_doménový_název]``` např. ```server.firma.com. CNAME www.firma.com.``` přeloží server.firma.com na www.firma.com
 * ```/etc/bind/db.10.10.in-addr.arpa```
 ```
 ; BIND db file for 10.10.in-addr.arpa
@@ -434,6 +453,7 @@ $ORIGIN 10.10.in-addr.arpa.
 
 1.0 PTR ns.i4c.lan.
 ```
+* zpětný překlad (opačné pořadí oktetů) ```[konec_IP_adresy] PTR [doménový název]``` např. ```1.0 PTR ns.i4c.lan.``` ip adresa x.x.0.1 bude přeložena na ns.i4c.lan
 * ```/etc/bind/db.0.20.10.in-addr.arpa```
 ```
 ; BIND db file for 0.20.10.in-addr.arpa
@@ -534,3 +554,6 @@ $ORIGIN 0.20.10.in-addr.arpa.
   * ```CREATE TABLE [název_tabulky] ([název_sloupce] [typ_proměnné], [název_sloupce] [typ_proměnné], ...);``` např. ```CREATE TABLE Persons (PersonID int, LastName varchar(255));```
 * smazání tabulky
   * ```DROP TABLE [název_tabulky];```
+* Vzdálené připojení na MariaDB server
+  * instalace klienta: ```sudo apt update && sudo apt install mariadb-client```
+  * připojení ```mariadb -h [IP_adresa] -u [Uživatel] -p```
