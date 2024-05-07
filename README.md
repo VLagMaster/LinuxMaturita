@@ -531,6 +531,6 @@ $ORIGIN 0.20.10.in-addr.arpa.
   * ```DROP DATABASE [název_databáze]```
 * tvorba tabulky
   * https://www.w3schools.com/mysql/mysql_create_table.asp
-  * ```CREATE TABLE [název_tabulky] ([název_sloupce] [typ_proměnné], [název_sloupce] [typ_proměnné], ...);``` např. ```CREATE TABLE Persons (PersonID int, LastName varchar(255),);```
+  * ```CREATE TABLE [název_tabulky] ([název_sloupce] [typ_proměnné], [název_sloupce] [typ_proměnné], ...);``` např. ```CREATE TABLE Persons (PersonID int, LastName varchar(255));```
 * smazání tabulky
   * ```DROP TABLE [název_tabulky];```
