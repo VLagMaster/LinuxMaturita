@@ -113,13 +113,13 @@ Konfigurace Ubuntu
 ### Tvorba uživatelů
 * příkaz ```useradd [parametry] [uživatel]```
 * parametry:
-  * ```-b [base_dir]``` Specifikuje lokaci domovského adresáře (base_dir)
+  * ```-d [home_path]``` Specifikuje lokaci domovského adresáře (home_dir)
   * ```-m``` Vytvoří domovskou složku když neexistuje
   * ```-g [group_name]``` Určí primární skupinu
   * ```-G [group_name1[,group_name2[,group_nameN]]]``` Přidá uživatele do dalších skupin
   * ```-s [lokace_shellu]``` Změna uživatelovo shellu po přihlášení (login_shellu)
   * ```-e [YYYY-MM-DD]``` Nastavení data vypšení účtu (expiredate)
-* v celku ```useradd -b [base_dir] -m -g [group_name] -G [group_name1[,group_name2[,group_nameN]]] -s [lokace_shellu] -e [YYYY-MM-DD] [uživatel]```
+* v celku ```useradd -d [home_dir] -m -g [group_name] -G [group_name1[,group_name2[,group_nameN]]] -s [lokace_shellu] -e [YYYY-MM-DD] [uživatel]```
 ### Změna hesla uživatele
 * příkaz ```passwd```
 * použití pro změnu hesla ```passwd [uživatel]``` a následné zadání hesla
