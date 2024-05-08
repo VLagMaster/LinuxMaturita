@@ -508,7 +508,7 @@ www CNAME server
   * tvorba v https://pgl.yoyo.org/as/bind-zone-file-creator.php
     * název domény bude ```[oktety_sítě_v_opačném_pořadí].in-addr.arpa``` (v tomto případě byla sít ```10.10.0.0/16``` a proto byl název domény změněn na ```10.10.in-addr.arpa```)
     * admin email zůstane stejný
-    * 
+    * doménový název nameserveru zůstane stejný
 ```
 ; BIND db file for 10.10.in-addr.arpa
 
