@@ -57,7 +57,7 @@ Konfigurace Ubuntu
   * Přepsání souboru
     * ```echo "Hello World" > out.txt```
   * Vložení výstupu za existující obsah na nový řádek
-    *   ```echo "Hello World >> out.txt"```
+    *   ```echo "Hello World" >> out.txt```
 * Použití obsahu souboru jako vstup
   * ```cowsay < in.txt```
 ### Roury - Pipes
