@@ -403,6 +403,10 @@ zone "0.20.10.in-addr.arpa" {
 };
 ```
 * ```/etc/bind/db.i4c.lan```
+  * tvorba souboru zóny v https://pgl.yoyo.org/as/bind-zone-file-creator.php
+    * zadaný ```Domain name``` jakožto název domény (v tomto případě ```i4c.lan```)
+    * zadaný jakýkoliv email (v tomto případě ```kotacka@uzlabina.cz```)
+    * zadaný doménový název nameserveru, což bude nejspíše doménový název routeru (v tomto případě ```ns.i4c.lan```)
 ```
 ; BIND db file for i4c.lan
 
@@ -430,9 +434,13 @@ www CNAME server
 ```
 * Tvorba A záznamu
   * ```[doménový_název] A [IP_adresa]``` např. ```www.firma.com. A 10.0.0.1``` přeloží doménu www.firma.com na IP adresu 10.0.0.1
-* Tvorba CNAME
+* Tvorba CNAME záznamu
   * ```[nový_doménový_název] CNAME [starý_doménový_název]``` např. ```server.firma.com. CNAME www.firma.com.``` přeloží server.firma.com na www.firma.com
 * ```/etc/bind/db.10.10.in-addr.arpa```
+  * tvorba v https://pgl.yoyo.org/as/bind-zone-file-creator.php
+    * název domény bude ```[oktety_sítě_v_opačném_pořadí].in-addr.arpa``` (v tomto případě byla sít ```10.10.0.0/16``` a proto byl název domény změněn na ```10.10.in-addr.arpa```)
+    * admin email zůstane stejný
+    * 
 ```
 ; BIND db file for 10.10.in-addr.arpa
 
