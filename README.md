@@ -552,7 +552,7 @@ $ORIGIN 0.20.10.in-addr.arpa.
 ```
 * postup hledání chyb
   * hledání v logu
-  * ```sudo journalct -xeu apache2.service```
+  * ```sudo journalctl -xeu apache2.service```
     * pohybování pomocí šipek (ne kolečkem myši)
     * hledání řádku, který ukazuje např. chyba na řádku x, nebo nebyl nalezen soubor
   * zobrazení statusu
