@@ -5,6 +5,10 @@ Konfigurace Ubuntu
 ## Užitečné příkazy
 * ```ls -lah```
   * vypsání všech souborů ve složce (včetně skrytých) v lidském formátu (megabajty, gigabajty, ... místo bajtů)
+* ```ls -Slh```
+  * vypsání všech souborů ve složce v lidském formátu (megabajty, gigabajty, ... místo bajtů) seřazených sestupně podle velikosti (od největšího k nejmenšímu)
+* ```ls -Slhr```
+  * vypsání všech souborů ve složce v lidském formátu (megabajty, gigabajty, ... místo bajtů) seřazených vzestupně podle velikosti (od nejmenšího k největšímu)
 * ```rm -r [složka/soubor]```
   * vymazání souboru nebo složky včetně jejího obsahu
 * ```grep [hledaný_řetězec]```
@@ -24,6 +28,24 @@ Konfigurace Ubuntu
 * příkaz ```touch [soubor]```
 * Příkaz touch vytvoří soubor pokud již neexistuje a následně změní jeho datum poslední úpravy
 * např. ```touch file.txt``` nebo ```touch folder/{file1.txt,file2.txt}```
+
+### Vypsání souborů ve složce
+* příkaz ```ls```
+  * dostupné parametry:
+    * ```-l```  vypíše v delším formátu
+    * ```-a``` vypíše všechny soubory (včetně skrytých + ```.``` a ```..```)
+    * ```-A``` vypíše všechny soubory (včetně skrytých ale bez ```.``` a ```..```)
+    * ```-h``` vypíše jednotky v čitelném formátu (např. MiB, GiB, místo bytů)
+    * ```-r``` prohodí pořadí souborů
+    * ```-S``` seřadí soubory podle velikosti sestupně (od největšího k nejmenšímu)
+    * ```-t``` seřadí soubory podle data sestupně (od nejnovějšího k nejstaršímu)
+  * použití ```ls [parametry] [složka]``` složka je nepoviná, když není zadaná, vypíše se obsah aktuální složky
+
+### Vytvoření souborů o určité velikosti
+* pomocí příkazu ``dd``
+  * ```dd if=/dev/zero of=[název_souboru] bs=1M count=[velikost_v_MiB]``` např. ```dd if=/dev/zero of=space.bin bs=1M count=100``` vytvoří soubor ```space.bin``` o velikosti ```100MiB```
+* pomocí příkazu ```fallocate```
+  * ```fallocate -l [velikost] [název souboru]``` např. ```fallocate -l 5G spacier.bin``` vytvoří soubor ```spacier.bin``` o velikosti ```5GiB```
 
 ### Směrování výstupu do souborů
 * 2 základní výstupy aplikací
