@@ -383,7 +383,7 @@ mount -a
 * ověření konektivity
   * příkaz ```ping [IP adresa/název]```
   * příkaz ```traceroute [IP adresa/název]```
-##Konfigurace DHCP
+## Konfigurace DHCP
 * nástoj ```isc-dhcp-server```
 * instalace ```sudo apt update && sudo apt install isc-dhcp-server```
 * konfigurace uložená v souboru ```/etc/dhcp/dhcpd.conf```
@@ -426,7 +426,15 @@ host [název_zařízení] {
   fixed-address [rezervovaná_IP_adresa];
 }
 ```
-* restart (pro aplikaci změn) ```sudo systemctl restart isc-dhcp-server```
+* postup hledání chyb
+  * hledání v logu
+  * ```sudo journalctl -xeu isc-dhcp-server.service```
+    * pohybování pomocí šipek (ne kolečkem myši)
+    * hledání řádku, který ukazuje např. chyba na řádku x, nebo nebyl nalezen soubor
+  * zobrazení statusu
+    * ```sudo systemctl status isc-dhcp-server.service```
+* restart DHCP serveru
+  * ```sudo systemctl restart isc-dhcp-server.service```
 ## Konfigurace DNS
 * nástroj ```bind9```
   * instalace ```sudo apt update && sudo apt install bind9```
@@ -543,7 +551,15 @@ $ORIGIN 0.20.10.in-addr.arpa.
 1 PTR ns.i4c.lan.
 10 PTR klient.i4c.lan.
 ```
-* restart (pro aplikaci změn) ```sudo systemctl restart bind9```
+* postup hledání chyb
+  * hledání v logu
+  * ```sudo journalctl -xeu named.service```
+    * pohybování pomocí šipek (ne kolečkem myši)
+    * hledání řádku, který ukazuje např. chyba na řádku x, nebo nebyl nalezen soubor
+  * zobrazení statusu
+    * ```sudo systemctl status named.service```
+* restart DNS serveru
+  * ```sudo systemctl restart named.service```
 ## Konfigurace web serveru
 * nástroj ```apache2```
 * instalace ```sudo apt update && sudo apt install apache2```
