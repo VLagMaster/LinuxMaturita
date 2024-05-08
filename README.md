@@ -170,8 +170,46 @@ done
 * příkaz ```chown [uživatel[:[skupina]]] file.txt```
 * např. ```chown worker:developers file.txt``` Změní vlastníka souboru na uživatele worker a vlastnickou skupinu na skupinu developers pro soubor file.txt
 
-## 3. Ročník
-### Tvorba oddílů na disku
+## Správa balíčků
+* aktualizace databáze a aplikací
+  * ```sudo apt update```
+    * Získá nejnovější informace o aplikacích
+  * ```sudo apt upgrade```
+    * zaktualizuje všechny nainstalované balíčky 
+* Vyhledání balíčku
+  * ```sudo apt search [hledaný_výraz]```
+    * Vyhledá všechny balíčky, které mají buďto v názvu nebo popisku hledaný výraz
+* Instalace
+  * ```sudo apt install [název_balíčku]```
+  * nainstaluje daný balíček
+* Odinstalace
+  * ```sudo apt remove [název_balíčku]```
+    * Odinstaluje balíček, ale nechá jeho konfigurace
+  * ```sudo apt purge [název_balíčku]```
+    * Odinstaluje balíček, včetně jeho konfigurace 
+
+## Správa opávnění sudo
+* nejjednodušší přidělení oprávnění
+  * přidání uživatele do skupiny sudo ```sudo usermod -aG sudo [uživatel]```
+    * dá uživateli oprávnění spouštět všechny příkazy se sudo
+* pokročilá nastavení uložená v souboru ```/etc/sudoers```
+* pokročilá nastavení pomocí příkazu ```sudo visudo```
+  * do souboru, který se otevře nutno přidat záznam
+    * pro uživatele ```[uživatel] ALL=([povolení_uživatelé]:[povolené_skupiny]) [povolené_říkazy]```
+      * ```[uživatel]``` určí, pro kterého uživatele pravidlo platí
+      * ```[povolení_uživatelé]``` určí, jako kteří uživatelé může [uživatel] vykonávat příkaz
+      * ```[povolené_skupiny]``` určí, jako která skupina může [uživatel] vykonávat příkaz
+      * ```[povolené_říkazy]``` určí, které příkazy, může [uživatel] používat jako jiný uživatel či skupina
+      * např ```user1 ALL=(ALL:ALL) ALL``` umožní uživateli ```user1``` vykonávat všechny příkazy jako jakýkoliv uživatel či skupina
+    * pro skupinu ```%[skupina] ALL=([povolení_uživatelé]:[povolené_skupiny]) [povolené_říkazy]```
+      * ```[skupina]``` určí, pro kterého uživatele pravidlo platí
+      * ```[povolení_uživatelé]``` určí, jako kteří uživatelé mohou členové skupiny [skupina] vykonávat příkaz
+      * ```[povolené_skupiny]``` určí, jako které skupiny mohou členové skupiny [skupina] vykonávat příkaz
+      * ```[povolené_říkazy]``` určí, které příkazy, mohou členové skupiny [skupina] používat jako jiný uživatel či skupina
+      * např ```user1 ALL=(ALL:ALL) ALL``` umožní členům skupiny ```skupina1``` vykonávat všechny příkazy jako jakýkoliv uživatel či skupina
+
+# 3. Ročník
+## Tvorba oddílů na disku
 * příkaz ```fdisk```
 * ```fdisk -l``` vypíše dostupné disky
 * ```fdisk [adresa_disku]``` otevře nástroj tvorby disku pro daný disk např. ```fdisk /dev/sdb```
@@ -216,7 +254,7 @@ UUID="39e6b5a8-f0de-45fe-b479-a2ba699ad7ed" none                    swap  sw    
 /var/swapfile                               none                    swap  sw          0      0
 ```
   * následné ozkoušení pomocí příkazu ```mount -a``` a ```mount``` 
-### Tvorba swapfile
+## Tvorba swapfile
 * swapfile = odkládací prostor uložený v souboru místo na odděleném oddílu
 * Postup tvorby:
   * Vytvoření souboru pomocí příkazu ```fallocate -l [velikost] [soubor]```
@@ -228,7 +266,7 @@ UUID="39e6b5a8-f0de-45fe-b479-a2ba699ad7ed" none                    swap  sw    
   * 
   * přidání záznamu do ```/etc/fstab``` viz. předchozí kapitola
 
-### LVM
+## LVM
 * https://www.digitalocean.com/community/tutorials/how-to-use-lvm-to-manage-storage-devices-on-ubuntu-18-04
 * formátování jednotlivých oddílů na kterých bude LVM pomocí ```pvcreate [oddíl1] [oddíl2] ...```
   * např. ```pvcreate /dev/sdb20 /dev/sdb21 /dev/sdb22``` nebo ```pvcreate /dev/sdb{20,21,22}```
@@ -242,7 +280,7 @@ UUID="39e6b5a8-f0de-45fe-b479-a2ba699ad7ed" none                    swap  sw    
   * např. mkfs.ext4 /dev/skupA/LVMPartition
   * potom už se s oddílem pracuje jako s každým jiným
 
-### RAID
+## RAID
 * https://raid.wiki.kernel.org/index.php/RAID_setup
 * úrovně raidu
   * 0 - striping
@@ -257,7 +295,7 @@ UUID="39e6b5a8-f0de-45fe-b479-a2ba699ad7ed" none                    swap  sw    
 * zobrazení informací o raid
   * ```cat /proc/mdstat``` zobrazí aktivní raidy
   * ```mdadm --monitor [md zařízení]```
-### Kvótování
+## Kvótování
 * https://www.digitalocean.com/community/tutorials/how-to-set-filesystem-quotas-on-ubuntu-20-04
 * limitovatelné věci
   * blocks - celková velikost souborů
@@ -298,7 +336,7 @@ mount -a
     * grace period
       * úprava pomocí ```edquota -t```
      
-### Tvorba šifrovaných oddílů (LUKS)
+## Tvorba šifrovaných oddílů (LUKS)
 * nástroj ```cryptsetup```
 * pomocí hesla
   * inicializace šifrovaného oddílu pomocí ```cryptsetup -y -v luksFormat [oddíl]```
@@ -326,7 +364,7 @@ mount -a
     * syntax: ```[jméno] [iden] [klíč] [typ_šifry]```
     * 
     * např.
-### práce s procesy
+## práce s procesy
 * priorita
   * spuštění příkazu s jinou prioritou
     * příkaz ```nice -n [priorita] [příkaz]``` např. ```nice -n 8 sleep 500```
