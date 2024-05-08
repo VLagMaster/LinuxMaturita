@@ -520,6 +520,15 @@ $ORIGIN 0.20.10.in-addr.arpa.
         </Directory>
 </VirtualHost>
 ```
+* postup hledání chyb
+  * hledání v logu
+  * ```sudo journalct -xeu apache2.service```
+    * pohybování pomocí šipek (ne kolečkem myši)
+    * hledání řádku, který ukazuje např. chyba na řádku x, nebo nebyl nalezen soubor
+  * zobrazení statusu
+    * ```sudo systemctl status apache2.service```
+  * restart web serveru
+    * ```sudo systemctl restart apache2.service```
 ## Konfigurace MariaDB serveru
 * instalace pomocí ```sudo apt update && sudo apt install mariadb-server```
 * bezpečná konfigurace
