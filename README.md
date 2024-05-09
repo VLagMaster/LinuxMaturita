@@ -103,6 +103,10 @@ Konfigurace Ubuntu
     * ```tar -xf [název_archivu] -C [cesta_ke_složce_kde_se_bude_extrahovat]```
     * např. Extrahování archivu archive.tar.xz do složky vystup ```tar -xf archive.tar.xz -C vystup```
 
+## Systémové proměnné
+* vypsání uživatelovo domovského adresáře
+  * ```echo $HOME```
+    * vypíše např. ```/home/fresh```
 
 ## Správa uživatelů
 * nutné privilegované oprávnění -> před příkazy dávat ```sudo```
@@ -161,7 +165,6 @@ do
    sudo chage -E $(date -d '+183 days' '+%Y-%m-%d') $user
 done
 ```
-
 ## Správa oprávnění k souborům a složkám
 ### Změna oprávnění
 * příkaz ```chmod [práva] [soubor]```
@@ -650,3 +653,395 @@ $ORIGIN 0.20.10.in-addr.arpa.
 * Vzdálené připojení na MariaDB server
   * instalace klienta: ```sudo apt update && sudo apt install mariadb-client```
   * připojení ```mariadb -h [IP_adresa] -u [Uživatel] -p```
+  * 
+# Vzorové Zadání
+## Tvorba souborů 1
+Obsahem každého souboru zaznam.txt bude ```Dnesek byl skvely!```
+```
+zaznam
+├── DEN-2024-7-1
+│   └── zaznam.txt
+├── DEN-2024-7-10
+│   └── zaznam.txt
+├── DEN-2024-7-11
+│   └── zaznam.txt
+├── DEN-2024-7-12
+│   └── zaznam.txt
+├── DEN-2024-7-13
+│   └── zaznam.txt
+├── DEN-2024-7-14
+│   └── zaznam.txt
+├── DEN-2024-7-15
+│   └── zaznam.txt
+├── DEN-2024-7-16
+│   └── zaznam.txt
+├── DEN-2024-7-17
+│   └── zaznam.txt
+├── DEN-2024-7-18
+│   └── zaznam.txt
+├── DEN-2024-7-19
+│   └── zaznam.txt
+├── DEN-2024-7-2
+│   └── zaznam.txt
+├── DEN-2024-7-20
+│   └── zaznam.txt
+├── DEN-2024-7-21
+│   └── zaznam.txt
+├── DEN-2024-7-22
+│   └── zaznam.txt
+├── DEN-2024-7-23
+│   └── zaznam.txt
+├── DEN-2024-7-24
+│   └── zaznam.txt
+├── DEN-2024-7-25
+│   └── zaznam.txt
+├── DEN-2024-7-26
+│   └── zaznam.txt
+├── DEN-2024-7-27
+│   └── zaznam.txt
+├── DEN-2024-7-28
+│   └── zaznam.txt
+├── DEN-2024-7-29
+│   └── zaznam.txt
+├── DEN-2024-7-3
+│   └── zaznam.txt
+├── DEN-2024-7-30
+│   └── zaznam.txt
+├── DEN-2024-7-31
+│   └── zaznam.txt
+├── DEN-2024-7-4
+│   └── zaznam.txt
+├── DEN-2024-7-5
+│   └── zaznam.txt
+├── DEN-2024-7-6
+│   └── zaznam.txt
+├── DEN-2024-7-7
+│   └── zaznam.txt
+├── DEN-2024-7-8
+│   └── zaznam.txt
+├── DEN-2024-7-9
+│   └── zaznam.txt
+├── DEN-2024-8-1
+│   └── zaznam.txt
+├── DEN-2024-8-10
+│   └── zaznam.txt
+├── DEN-2024-8-11
+│   └── zaznam.txt
+├── DEN-2024-8-12
+│   └── zaznam.txt
+├── DEN-2024-8-13
+│   └── zaznam.txt
+├── DEN-2024-8-14
+│   └── zaznam.txt
+├── DEN-2024-8-15
+│   └── zaznam.txt
+├── DEN-2024-8-16
+│   └── zaznam.txt
+├── DEN-2024-8-17
+│   └── zaznam.txt
+├── DEN-2024-8-18
+│   └── zaznam.txt
+├── DEN-2024-8-19
+│   └── zaznam.txt
+├── DEN-2024-8-2
+│   └── zaznam.txt
+├── DEN-2024-8-20
+│   └── zaznam.txt
+├── DEN-2024-8-21
+│   └── zaznam.txt
+├── DEN-2024-8-22
+│   └── zaznam.txt
+├── DEN-2024-8-23
+│   └── zaznam.txt
+├── DEN-2024-8-24
+│   └── zaznam.txt
+├── DEN-2024-8-25
+│   └── zaznam.txt
+├── DEN-2024-8-26
+│   └── zaznam.txt
+├── DEN-2024-8-27
+│   └── zaznam.txt
+├── DEN-2024-8-28
+│   └── zaznam.txt
+├── DEN-2024-8-29
+│   └── zaznam.txt
+├── DEN-2024-8-3
+│   └── zaznam.txt
+├── DEN-2024-8-30
+│   └── zaznam.txt
+├── DEN-2024-8-31
+│   └── zaznam.txt
+├── DEN-2024-8-4
+│   └── zaznam.txt
+├── DEN-2024-8-5
+│   └── zaznam.txt
+├── DEN-2024-8-6
+│   └── zaznam.txt
+├── DEN-2024-8-7
+│   └── zaznam.txt
+├── DEN-2024-8-8
+│   └── zaznam.txt
+└── DEN-2024-8-9
+    └── zaznam.txt
+```
+### řešení:
+```mkdir zaznam```
+```cd zaznam```
+```mkdir DEN-2024-{7..8}-{1..31}```
+```echo "Dnesek byl skvely!" | tee DEN-2024-{7..8}-{1..31}/zaznam.txt```
+
+## Tvorba souborů 2
+Obsahem každého souboru zaznam.txt bude ```Jsem zde```
+
+zadani2
+├── DOPOLEDNE-10-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-10-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-11-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-11-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-12-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-12-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-13-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-13-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-14-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-14-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-15-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-15-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-16-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-16-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-1-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-17-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-17-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-1-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-18-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-18-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-19-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-19-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-20-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-20-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-21-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-21-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-22-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-22-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-23-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-23-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-24-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-24-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-25-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-25-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-26-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-26-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-2-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-27-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-27-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-2-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-28-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-28-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-29-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-29-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-30-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-30-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-31-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-31-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-3-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-3-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-4-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-4-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-5-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-5-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-6-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-6-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-7-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-7-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-8-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-8-8-2024
+│   └── vystup.txt
+├── DOPOLEDNE-9-7-2024
+│   └── vystup.txt
+├── DOPOLEDNE-9-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-10-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-10-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-11-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-11-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-12-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-12-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-13-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-13-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-14-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-14-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-15-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-15-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-16-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-16-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-1-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-17-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-17-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-1-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-18-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-18-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-19-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-19-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-20-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-20-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-21-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-21-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-22-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-22-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-23-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-23-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-24-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-24-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-25-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-25-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-26-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-26-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-2-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-27-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-27-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-2-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-28-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-28-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-29-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-29-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-30-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-30-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-31-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-31-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-3-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-3-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-4-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-4-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-5-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-5-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-6-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-6-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-7-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-7-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-8-7-2024
+│   └── vystup.txt
+├── ODPOLEDNE-8-8-2024
+│   └── vystup.txt
+├── ODPOLEDNE-9-7-2024
+│   └── vystup.txt
+└── ODPOLEDNE-9-8-2024
+    └── vystup.txt
+### řešení:
+```mkdir -p zadani2/{DOPOLEDNE,ODPOLEDNE}-{1..31}-{7..8}-2024````
+```echo "Jsem zde" | tee zadani2/{DOPOLEDNE,ODPOLEDNE}-{1..31}-{7..8}-2024/vystup.txt```
