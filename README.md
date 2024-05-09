@@ -792,7 +792,7 @@ zaznam
 
 ## Tvorba souborů 2
 Obsahem každého souboru zaznam.txt bude ```Jsem zde```
-
+```
 zadani2
 ├── DOPOLEDNE-10-7-2024
 │   └── vystup.txt
@@ -1042,6 +1042,7 @@ zadani2
 │   └── vystup.txt
 └── ODPOLEDNE-9-8-2024
     └── vystup.txt
+```
 ### řešení:
 ```mkdir -p zadani2/{DOPOLEDNE,ODPOLEDNE}-{1..31}-{7..8}-2024````
 ```echo "Jsem zde" | tee zadani2/{DOPOLEDNE,ODPOLEDNE}-{1..31}-{7..8}-2024/vystup.txt```
