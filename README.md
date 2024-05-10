@@ -1044,5 +1044,5 @@ zadani2
     └── vystup.txt
 ```
 ### řešení:
-```mkdir -p zadani2/{DOPOLEDNE,ODPOLEDNE}-{1..31}-{7..8}-2024````
+```mkdir -p zadani2/{DOPOLEDNE,ODPOLEDNE}-{1..31}-{7..8}-2024```
 ```echo "Jsem zde" | tee zadani2/{DOPOLEDNE,ODPOLEDNE}-{1..31}-{7..8}-2024/vystup.txt```
